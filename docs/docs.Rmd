@@ -1,0 +1,74 @@
+---
+title: "SEDAR 84"
+author: "[Jeremiah Blondeau](https://github.com/jeremiaheb)"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+mail: "jeremiah.blondeau@noaa.gov"
+github: "jeremiaheb"
+logo: "logo_gallery.png"
+output:
+  ProjectTemplates::Personal:
+    toc: TRUE
+    number_sections: FALSE
+    code_folding: "hide"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+# Needed Libraries
+library(rvc)
+library(tidyverse)
+library(ggforce)
+
+# Source Plotting Functions
+source('../scripts/plot_time_series.R', local = knitr::knit_global())
+source('../scripts/theme_publication.R', local = knitr::knit_global())
+
+# Read in MIR data set
+PRICO_TimeSeries_Calibrated <- readRDS("../input_datasets/prico_01_21_calibrated.rds")
+STTSTJ_TimeSeries_Calibrated <- readRDS("../input_datasets/sttstj_01_21_calibrated.rds")
+STX_TimeSeries_Calibrated <- readRDS("../input_datasets/stx_01_21_calibrated.rds")
+```
+
+# Sample Size by Island and Stratum
+
+### 0 - 100ft
+
+![](../CaribbeanEffortTable.jpg)
+
+### 100 - 150ft
+
+![](../DCRMPEffortTable.jpg)
+
+# Species {#Species .tabset}
+
+## Yellowtail Snapper
+
+### Yellowtail Raw Observations
+
+![](../YellowtailRawObservations.jpg)
+
+### Yellowtail Raw Observations DCRMP
+
+![](../YellowtailRawObservations_DCRMP.jpg)
+
+```{r echo=FALSE}
+SEDAR_plot_domain_den_by_year(dataset = PRICO_TimeSeries_Calibrated,
+                              species = "ocy chry",
+                              title = "PRICO YT")
+
+SEDAR_plot_domain_den_by_year(dataset = STTSTJ_TimeSeries_Calibrated,
+                              species = "ocy chry",
+                              title = "STTSTJ YT")
+```
+
+## Stoplight Parrotfish
+
+### Stoplight Raw Observations
+
+![](../StoplightRawObservations.jpg)
+
+```{r echo=FALSE}
+SEDAR_plot_domain_den_by_year(dataset = STX_TimeSeries_Calibrated,
+                              species = "spa viri",
+                              title = "STX SL")
+```
